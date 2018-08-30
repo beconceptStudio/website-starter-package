@@ -98,14 +98,15 @@ run gulp's production task and replace all `/assets` and `/dist` with `cdn-url/a
 ## HOW TO INJECT REPETITIVE CODE:
 
 ### CSS
-
+```
 <!-- inject:css -->
 <!-- endinject -->
-
+```
 ### Javascript
+```
 <!-- inject:js -->
 <!-- endinject -->
-
+```
 ### Facebook
 <!-- inject:facebookpixel:html -->
 <!-- endinject -->
