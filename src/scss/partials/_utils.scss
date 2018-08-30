@@ -1,0 +1,23 @@
+.unselectable {
+	-webkit-touch-callout: none;
+	user-select: none;
+}
+
+/*--------------------------------
+	Form input placeholder text
+	example:
+	input,
+	textarea {
+		@include input-placeholder {
+			color: $grey;
+		}
+	}
+*/
+
+@mixin input-placeholder {
+	&.placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&::-webkit-input-placeholder { @content; }
+}

@@ -1,0 +1,16 @@
+/* Required imports */
+@import "core/bootstrap";
+@import "partials/main-variables";
+@import "partials/media";
+@import "partials/utils";
+@import "partials/barba";
+@import "partials/cookies";
+@import "partials/common";
+
+/* Pages imports here */
+@import "pages/index";
+
+/* Style correction imports here */
+@import "partials/browser-corrections";
+
+/* Custom imports here */

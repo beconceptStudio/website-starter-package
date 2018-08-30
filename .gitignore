@@ -1,0 +1,18 @@
+# Exclude OS X folder attributes
+.DS_Store
+
+# Exclude node_modules
+node_modules
+
+# Exclude any PSD/AI source
+*.psd
+*.ai
+
+# Exclude package-lock.json
+package-lock.json
+
+# Exclude production folder
+prod/
+
+# Exclude temporary folder
+tmp/
