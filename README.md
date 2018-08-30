@@ -1,7 +1,7 @@
 # website-stack
-Before start always run `npm i` to installa all dependencies
+Before start always run `npm i` to install all the required dependencies.
 
-##FILES STRUCTURE
+## FILES STRUCTURE
 
 ### SCSS
 
@@ -80,7 +80,6 @@ Before start always run `npm i` to installa all dependencies
 	|   contains all code for index page
 
 ### SCSS
-
 
 ## SPECIAL COMMANDS
 
