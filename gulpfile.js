@@ -119,6 +119,12 @@ gulp.task('inject', function () {
       return file.contents.toString();
     }
   }))
+  .pipe(inject(gulp.src(['src/partials/fonts.html']), {//inject facebook pixel code
+    starttag: '<!-- inject:fonts:html -->',
+    transform: function(filepath, file) {
+      return file.contents.toString();
+    }
+  }))
     .pipe(gulp.dest('./tmp')).pipe(browserSync.stream());
 });
 
@@ -260,6 +266,12 @@ gulp.task('prod-inject-cdn', function () {
     }))
     .pipe(inject(gulp.src(['src/partials/header.html']), {//inject facebook pixel code
       starttag: '<!-- inject:header:html -->',
+      transform: function(filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/fonts.html']), {//inject facebook pixel code
+      starttag: '<!-- inject:fonts:html -->',
       transform: function(filepath, file) {
         return file.contents.toString();
       }
