@@ -35,79 +35,36 @@ Licence: https://github.com/twbs/bootstrap/blob/v4-dev/LICENSE
 
 ### SCSS
 
----`main.scss` is the master file
 
-	|
-	
-	|-`PARTIALS`<br>
-	
-	|		|
-	
-    |		-`_common.scss`
-	
-	|			contains all the commons page's styles
-	
-	|		|
-	
-    |		-`_utils.scss`
-	
-	|			contains all mixins except of media queries
-	
-	|		|
-	
-    |		-`_barba.scss` 
-	
-	|			contains scss for all barba's animations
-	
-	|		|
-	
-    |		-`_browser-corrections.scss`
-	
-	|			contains scss for correct layout on browser
-	
-	|		|
-	
-    |		-`_media.scss`
-	
-	|			contains media queries mixins
-	
-	|		|
-	
-    |		-`_cookies.scss`
-	
-	|			contains scss for style cookie popup
-	
-	|		|
-	
-    |		-`_main-variables.scss` 
-	
-	|			contains all constant variables
-	
-	|
-	
-	|-`PAGES`
-	
-            |
-			
-    		-`_index.scss`
-			
-            contains scss for relative page
+main.scss is the master file
+└── PARTIALS
+│   ├── _common.scss  contains all the commons page's styles
+|   |
+│   ├── _utils.scss   contains all mixins except of media queries
+|   |
+│   ├── _barba.scss   contains scss for all barba's animations
+|   |
+│   ├── _browser-corrections.scss   contains scss for correct layout on browser
+|   |
+│   ├── _media.scss   contains media queries mixins
+|   |
+│   ├── _cookies.scss   contains scss for style cookie popup
+|   |
+│   └── _main-variables.scss   contains all constant variables
+│   
+└── PAGES
+    └── _index.scss   contains scss for relative page
+
+
 
 ### JS
 
----`main.js` contains all the commons page's javascript
-
-	|
-	
-	|-`barba.js`
-	
-	|   contains all code for barba's animation
-	
-	|
-	
-	|-`index.js`
-	
-	|   contains all code for index page
+│   
+└── main.js contains all the commons page's javascript
+│   
+└── barba.js   contains all code for barba's animation
+│   
+└── index.js   contains all code for index page
 
 ### SCSS
 
