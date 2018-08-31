@@ -1,6 +1,25 @@
 # website-stack
 Before start always run `npm i` to install all the required dependencies.
 
+##LIBRARIES AND FRAMEWORK USED
+
+###	Barba.js
+
+Url: http://barbajs.org/
+Licence: https://github.com/luruke/barba.js/blob/master/LICENSE
+
+###Bowser
+
+Url: https://github.com/lancedikson/bowser
+Version: 1.9.4
+Licence: https://github.com/lancedikson/bowser/blob/master/LICENSE
+
+###Bootstrap
+
+Url: https://getbootstrap.com/
+Version: 4.1.3
+Licence: https://github.com/twbs/bootstrap/blob/v4-dev/LICENSE
+
 ## FILES STRUCTURE
 
 ### SCSS
