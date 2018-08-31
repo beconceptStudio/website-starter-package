@@ -58,7 +58,6 @@ main.scss is the master file
 
 
 ### JS
-
 ```
 │   
 └── main.js contains all the commons page's javascript
@@ -67,7 +66,6 @@ main.scss is the master file
 │   
 └── index.js   contains all code for index page
 ```
-
 ### SCSS
 
 ## SPECIAL COMMANDS
