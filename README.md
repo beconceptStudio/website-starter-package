@@ -35,7 +35,7 @@ Licence: https://github.com/twbs/bootstrap/blob/v4-dev/LICENSE
 
 ### SCSS
 
-
+```
 main.scss is the master file
 └── PARTIALS
 │   ├── _common.scss  contains all the commons page's styles
@@ -54,17 +54,19 @@ main.scss is the master file
 │   
 └── PAGES
     └── _index.scss   contains scss for relative page
-
+```
 
 
 ### JS
 
+```
 │   
 └── main.js contains all the commons page's javascript
 │   
 └── barba.js   contains all code for barba's animation
 │   
 └── index.js   contains all code for index page
+```
 
 ### SCSS
 
@@ -84,6 +86,12 @@ run gulp's production task and replace all `/assets` and `/dist` with `cdn-url/a
 
 ## HOW TO INJECT REPETITIVE CODE:
 
+### FONTS
+```
+<!-- inject:fonts:html -->
+<!-- endinject -->
+```
+
 ### CSS
 ```
 <!-- inject:css -->
@@ -95,23 +103,50 @@ run gulp's production task and replace all `/assets` and `/dist` with `cdn-url/a
 <!-- endinject -->
 ```
 ### Facebook
+```
 <!-- inject:facebookpixel:html -->
 <!-- endinject -->
+```
 
 ### Google Analytics
+```
 <!-- inject:googleanalytics:html -->
 <!-- endinject -->
+```
 
 ### Header
+```
 <!-- inject:header:html -->
 <!-- endinject -->
+```
 
 ### Footer
+```
 <!-- inject:footer:html -->
 <!-- endinject -->
+```
 
 ### Vendor remote code
+```
 <!-- inject:vendorremotecode:html -->
 <!-- endinject -->
+```
 
+
+## Creators
+
+
+**Alessio Bortolotti**
+
+- <https://twitter.com/ale92bort>
+- <https://github.com/TheBorto>
+
+**Andrea Ruggeri**
+
+- <https://twitter.com/andrearugge>
+- <https://github.com/andrearugge>
+
+**Ivan Bosnjak**
+
+- <https://www.facebook.com/BosnjakIvan?>
 
