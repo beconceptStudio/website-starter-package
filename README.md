@@ -1,7 +1,7 @@
 # website-stack
 Before start always run `npm i` to install all the required dependencies.
 
-##LIBRARIES AND FRAMEWORK USED
+## LIBRARIES AND FRAMEWORK USED
 
 ###	Barba.js
 
