@@ -27,11 +27,14 @@ gulp.task('watch', [], function() {
   'create-cookie-file',
   'inject',
   function(){
-    console.log("initial setup terminates");
-  });
-  browserSync.init({
-    server: config.paths.tmp.folder,
-    notify: false
+    console.log("initial setup terminates");    
+
+    //start browser sync after all actions are completed
+    browserSync.init({
+      server: "tmp",
+      notify: false
+    });
+
   });
 
   var scssPaths = config.paths.src.scss.watch;
@@ -57,31 +60,34 @@ gulp.task('copy-assets', [], function() {
 
 // Copy vendor css files & auto-inject into browsers
 gulp.task('copy-css', function() {
-  return gulp.src("src/vendor/css/*.css")
-      .pipe(gulp.dest("tmp/dist/vendor/css/")).pipe(browserSync.stream());
+  return gulp.src(config.paths.src.vendor.css.watch)
+        .pipe(gulp.dest(config.paths.tmp.vendor.css))
+        .pipe(browserSync.stream());
 });
 
 // Copy js files & auto-inject into browsers
 gulp.task('copy-js', function() {
-  return gulp.src("src/js/*.js")
-      .pipe(gulp.dest("tmp/dist/js/")).pipe(browserSync.stream());
+  return gulp.src(config.paths.src.js.watch)
+        .pipe(gulp.dest(config.paths.tmp.js))
+        .pipe(browserSync.stream());
 });
 
 // Copy vendor js files & auto-inject into browsers
 gulp.task('copy-vendor-js', function() {
-  return gulp.src("src/vendor/js/*.js")
-      .pipe(gulp.dest("tmp/dist/vendor/js/")).pipe(browserSync.stream());
+  return gulp.src(config.paths.src.vendor.js.watch)
+        .pipe(gulp.dest(config.paths.tmp.vendor.js))
+        .pipe(browserSync.stream());
 });
 
 // Compile sass & auto-inject into browsers
 gulp.task('sass', function() {
 
-  return gulp.src("src/scss/*.scss")
-      .pipe(wait(500))
-      .pipe(sass().on('error', sass.logError))
-      .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
-      .pipe(gulp.dest("tmp/dist/css"))
-      .pipe(browserSync.stream()).pipe(browserSync.stream());
+  return gulp.src(config.paths.src.scss.entrypoint)
+        .pipe(wait(500))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
+        .pipe(gulp.dest(config.paths.tmp.css))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('inject', function () {
