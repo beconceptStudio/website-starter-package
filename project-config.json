@@ -56,6 +56,7 @@
             }
         },
         "tmp" : {
+            "injectarray": ["dist/vendor/js/*.js", "dist/vendor/css/*.css", "dist/js/*.js", "dist/css/*.css"],
             "folder" : "tmp/",
             "js" : "tmp/dist/js/",
             "css" : "tmp/dist/css/",
@@ -71,7 +72,16 @@
             }
         },
         "prod":{
-            
+            "injectarray": ["dist/vendor/js/*.js", "dist/vendor/css/*.css", "dist/js/*.js", "dist/css/*.css"],
+            "folder" : "prod/",
+            "js" : "prod/dist/js/",
+            "css" : "prod/dist/css/",
+            "assets" : "prod/assets",
+            "vendor" : {
+                "folder" : "prod/dist/vendor/",
+                "js" : "prod/dist/vendor/js",
+                "css" : "prod/dist/vendor/css"
+            }
         }
     }
   }

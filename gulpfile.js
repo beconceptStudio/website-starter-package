@@ -31,7 +31,7 @@ gulp.task('watch', [], function() {
 
     //start browser sync after all actions are completed
     browserSync.init({
-      server: "tmp",
+      server: config.paths.tmp.folder,
       notify: false
     });
 
@@ -91,9 +91,9 @@ gulp.task('sass', function() {
 });
 
 gulp.task('inject', function () {
-  var target = gulp.src('./src/**/*.html');
+  var target = gulp.src(config.paths.src.html.watch);
  
-  var sources = gulp.src(['dist/vendor/js/*.js', 'dist/vendor/css/*.css', 'dist/js/*.js', 'dist/css/*.css',], {'cwd': __dirname + '/tmp/'});
+  var sources = gulp.src(config.paths.tmp.injectarray, {'cwd': __dirname + '/' + config.paths.tmp.folder});
   return target.pipe(inject(sources))
   .pipe(inject(gulp.src(['othercode/googleanalytics.html']), {//inject google analytics code
     starttag: '<!-- inject:googleanalytics:html -->',
@@ -131,7 +131,7 @@ gulp.task('inject', function () {
       return file.contents.toString();
     }
   }))
-    .pipe(gulp.dest('./tmp')).pipe(browserSync.stream());
+    .pipe(gulp.dest(config.paths.tmp.folder)).pipe(browserSync.stream());
 });
 
 
@@ -165,60 +165,60 @@ gulp.task('create-cookie-file', function () {
 gulp.task('prod-clean', [], function() {
   console.log("Clean all files in build folder");
 
-  return gulp.src(['prod/'], { read: false })
+  return gulp.src([config.paths.prod.folder], { read: false })
   .pipe(clean());
 });
 
 
 gulp.task('prod-copy-assets', [], function() {
 
-  return gulp.src(['assets/**/*']).pipe(gulp.dest('prod/assets'));
+  return gulp.src([config.paths.assets.allfiles]).pipe(gulp.dest(config.paths.prod.assets));
 });
 
 
 // Copy vendor css files & auto-inject into browsers
 gulp.task('prod-copy-css', function() {
-  return gulp.src("src/vendor/css/*.css")
+  return gulp.src(config.paths.src.vendor.css.watch)
             .pipe(cleanCSS({compatibility: 'ie8'}))
             .pipe(rename('vendor.min.css'))
-            .pipe(gulp.dest("prod/dist/vendor/css/"));
+            .pipe(gulp.dest(config.paths.prod.vendor.css));
 });
 
 // Copy js files & auto-inject into browsers
 gulp.task('prod-copy-js', function() {
   
-  return gulp.src("src/js/*.js")
+  return gulp.src(config.paths.src.js.watch)
   .pipe(concat("scripts.js"))
   .pipe(rename('scripts.min.js'))
   .pipe(uglify().on('error', gutil.log))
-  .pipe(gulp.dest("prod/dist/js/"));
+  .pipe(gulp.dest(config.paths.prod.js));
 });
 
 // Copy vendor js files & auto-inject into browsers
 gulp.task('prod-copy-vendor-js', function() {
-  return gulp.src("src/vendor/js/*.js")
+  return gulp.src(config.paths.src.vendor.js.watch)
   .pipe(concat("scripts.js"))
   .pipe(rename('vendor.min.js'))
   .pipe(uglify().on('error', gutil.log))
-  .pipe(gulp.dest("prod/dist/vendor/js/"));
+  .pipe(gulp.dest(config.paths.prod.vendor.js));
 });
 
 // Compile sass & auto-inject into browsers
 gulp.task('prod-sass', function() {
 
-  return gulp.src("src/scss/*.scss")
+  return gulp.src(config.paths.src.scss.entrypoint)
       .pipe(sass().on('error', sass.logError))
       .pipe(concat("main.css"))
       .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
       .pipe(cleanCSS({compatibility: 'ie8'}))
       .pipe(rename('main.min.css'))
-      .pipe(gulp.dest("prod/dist/css"));
+      .pipe(gulp.dest(config.paths.prod.css));
 });
 
 gulp.task('prod-inject', function () {
-  var target = gulp.src('./src/**/*.html');
+  var target = gulp.src(config.paths.src.html.watch);
  
-  var sources = gulp.src(['dist/vendor/js/*.js', 'dist/vendor/css/*.css', 'dist/js/*.js', 'dist/css/*.css',], {'cwd': __dirname + '/prod/'});
+  var sources = gulp.src(config.paths.prod.injectarray, {'cwd': __dirname + '/' + config.paths.prod.folder});
   return target.pipe(inject(sources))
     .pipe(inject(gulp.src(['othercode/googleanalytics.html']), {//inject google analytics code
       starttag: '<!-- inject:googleanalytics:html -->',
@@ -240,7 +240,7 @@ gulp.task('prod-inject', function () {
     }))
     .pipe(strip())//remove all comments
     .pipe(htmlmin({collapseWhitespace: true}))//minify html page
-    .pipe(gulp.dest('./prod'));//create files
+    .pipe(gulp.dest(config.paths.prod.folder));//create files
 });
 
 
@@ -249,9 +249,9 @@ gulp.task('prod-inject-cdn', function () {
   var cdn, i = process.argv.indexOf("--cdn");
   cdn = process.argv[i+1];
   
-  var target = gulp.src('./src/*.html');
- 
-  var sources = gulp.src(['dist/vendor/js/*.js', 'dist/vendor/css/*.css', 'dist/js/*.js', 'dist/css/*.css',], {'cwd': __dirname + '/prod/'});
+  var target = gulp.src(config.paths.src.html);
+
+  var sources = gulp.src(config.paths.prod.injectarray, {'cwd': __dirname + '/' + config.paths.tmp.folder});
   return target.pipe(inject(sources))
     .pipe(inject(gulp.src(['src/trackingcode/googleanalytics.html']), {//inject google analytics code
       starttag: '<!-- inject:googleanalytics:html -->',
@@ -287,7 +287,7 @@ gulp.task('prod-inject-cdn', function () {
     .pipe(replace('src="./', 'src="' + cdn + "/"))
     .pipe(replace('src="assets/', 'src="' + cdn + "/assets/"))
     .pipe(htmlmin({collapseWhitespace: true}))//minify html page
-    .pipe(gulp.dest('./prod'));//create files
+    .pipe(gulp.dest(config.paths.prod.folder));//create files
 });
 
 
@@ -318,7 +318,7 @@ gulp.task('production', function () {
     );
     if(process.argv.indexOf("--visual")>-1){
       browserSync.init({
-        server: "prod/",
+        server: config.paths.prod.folder,
         notify: false
       });
     }
