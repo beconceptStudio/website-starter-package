@@ -146,5 +146,5 @@ run gulp's production task and replace all `/assets` and `/dist` with `cdn-url/a
 
 **Ivan Bosnjak**
 
-- <https://www.facebook.com/BosnjakIvan?>
+- <https://www.facebook.com/BosnjakIvan>
 
