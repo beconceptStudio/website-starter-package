@@ -8,13 +8,13 @@ Before start always run `npm i` to install all the required dependencies.
 Url: http://barbajs.org/
 Licence: https://github.com/luruke/barba.js/blob/master/LICENSE
 
-###Bowser
+### Bowser
 
 Url: https://github.com/lancedikson/bowser
 Version: 1.9.4
 Licence: https://github.com/lancedikson/bowser/blob/master/LICENSE
 
-###Bootstrap
+### Bootstrap
 
 Url: https://getbootstrap.com/
 Version: 4.1.3
