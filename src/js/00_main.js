@@ -11,8 +11,17 @@ $("html").addClass(browserType);
 $("html").addClass(browserType + "-" + bowser.version);
 //END BROWSER DETECTION
 
-//ADD BARBA TRANSITION LAYER
-$("body").append('<div class="page-barba-overlay"></div>');
+// SAVE WINDOW WIDTH AND HEIGHT
+var windowWidth = $(window).width(),
+    windowHeight = $(window).height();
+
+// SET RESPONSIVE BREAKPOINTS
+var breakpoints = {
+  "breakpointSM": 576,
+  "breakpointMD": 992,
+  "breakpointLG": 992,
+  "breakpointXL": 1200
+};
 
 //SET TIMING VARIABLE FOR ANIMATION COERENCE
 var timinig = {
@@ -21,4 +30,15 @@ var timinig = {
     'slow': 1.2,
     'slowest': 1.6
 };
+
+//DEFINE SCROLLBAR
+var scrollbar; 
+
+
+$(document).ready(function(){
   
+    scrollbar= Scrollbar.init(document.getElementById("scroll-wrapper"));
+    scrollbar.track.xAxis.hide();
+    $("body").addClass($(".pageclass").val());
+    
+});

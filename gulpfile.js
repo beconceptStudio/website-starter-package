@@ -131,6 +131,12 @@ gulp.task('inject', function () {
       return file.contents.toString();
     }
   }))
+  .pipe(inject(gulp.src(['src/partials/out-of-the-wrapper.html']), {//inject code outside the wrappers
+    starttag: '<!-- inject:outofthewrapper:html -->',
+    transform: function(filepath, file) {
+      return file.contents.toString();
+    }
+  }))
     .pipe(gulp.dest(config.paths.tmp.folder)).pipe(browserSync.stream());
 });
 
@@ -238,6 +244,12 @@ gulp.task('prod-inject', function () {
         return file.contents.toString();
       }
     }))
+    .pipe(inject(gulp.src(['src/partials/out-of-the-wrapper.html']), {//inject code outside the wrappers
+      starttag: '<!-- inject:outofthewrapper:html -->',
+      transform: function(filepath, file) {
+        return file.contents.toString();
+      }
+    }))
     .pipe(strip())//remove all comments
     .pipe(htmlmin({collapseWhitespace: true}))//minify html page
     .pipe(gulp.dest(config.paths.prod.folder));//create files
@@ -278,6 +290,12 @@ gulp.task('prod-inject-cdn', function () {
     }))
     .pipe(inject(gulp.src(['src/partials/fonts.html']), {//inject facebook pixel code
       starttag: '<!-- inject:fonts:html -->',
+      transform: function(filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/out-of-the-wrapper.html']), {//inject code outside the wrappers
+      starttag: '<!-- inject:outofthewrapper:html -->',
       transform: function(filepath, file) {
         return file.contents.toString();
       }

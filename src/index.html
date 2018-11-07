@@ -29,7 +29,7 @@
     <!-- Font -->
     <!-- inject:fonts:html -->
     <!-- endinject -->
-    
+
     <!-- inject:css -->
     <!-- endinject -->
 
@@ -40,15 +40,24 @@
     <!-- endinject -->
   </head>
   <body>
-    <!-- inject:header:html -->
+    <!-- inject:outofthewrapper:html -->
     <!-- endinject -->
+    <div id="scroll-wrapper" data-scrollbar>
+      <!-- inject:header:html -->
+      <!-- endinject -->
 
-    <div class="container mt-5">
-      <h1>
-        Website stack
-      </h1>
+      <div id="barba-wrapper">
+        <div class="barba-container" >        
+          <input type="hidden" class="pageclass" value="home">
+
+          <div class="container mt-5">
+            <h1>
+              Website stack
+            </h1>
+          </div>
+        </div>
+      </div>
     </div>
-    
 
     <!-- inject:footer:html -->
     <!-- endinject -->
