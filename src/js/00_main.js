@@ -41,4 +41,14 @@ $(document).ready(function(){
     scrollbar.track.xAxis.hide();
     $("body").addClass($(".pageclass").val());
     
+    //add rel="nofollow" to all external link
+    $('a').each(function()
+    {
+      var reg_exp = new RegExp('/' + window.location.host + '/');
+      if (!reg_exp.test(this.href))
+      {
+        // External Link Found  
+        $(this).attr('rel','nofollow');
+      }
+    });
 });
