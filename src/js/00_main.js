@@ -32,13 +32,21 @@ var timinig = {
 };
 
 //DEFINE SCROLLBAR
-var scrollbar; 
+// var scrollbar; 
+
+
+
+//DEFINE IF IS MOBILE
+var md = new MobileDetect(window.navigator.userAgent);
+// if (md.mobile()) {
+//     //DO SOMETHING
+// }
 
 
 $(document).ready(function(){
-  
-    scrollbar= Scrollbar.init(document.getElementById("scroll-wrapper"));
-    scrollbar.track.xAxis.hide();
+    // uncomment this if you use scrollbar addons
+    // scrollbar= Scrollbar.init(document.getElementById("scroll-wrapper"));
+    // scrollbar.track.xAxis.hide();
     $("body").addClass($(".pageclass").val());
     
     //add rel="nofollow" to all external link

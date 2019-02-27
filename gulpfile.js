@@ -17,8 +17,10 @@ var strip = require('gulp-strip-comments');//strip comments from files
 var htmlmin = require('gulp-htmlmin');//minify html
 var replace = require('gulp-string-replace');//string raplace in case of cdn
 var wait = require('gulp-wait');
+var ftp = require('vinyl-ftp');//FTP plugin
 
 var config = require('./project-config.json');
+var configFTP = require('./ftp-config.json');
 
 gulp.task('watch', [], function() {
   runSequence('clean',
@@ -95,18 +97,6 @@ gulp.task('inject', function () {
  
   var sources = gulp.src(config.paths.tmp.injectarray, {'cwd': __dirname + '/' + config.paths.tmp.folder});
   return target.pipe(inject(sources))
-  .pipe(inject(gulp.src(['othercode/googleanalytics.html']), {//inject google analytics code
-    starttag: '<!-- inject:googleanalytics:html -->',
-    transform: function(filepath, file) {
-      return file.contents.toString();
-    }
-  }))
-  .pipe(inject(gulp.src(['othercode/facebookpixel.html']), {//inject facebook pixel code
-    starttag: '<!-- inject:facebookpixel:html -->',
-    transform: function(filepath, file) {
-      return file.contents.toString();
-    }
-  }))
   .pipe(inject(gulp.src(['othercode/vendorremotecode.html']), {//inject facebook pixel code
     starttag: '<!-- inject:vendorremotecode:html -->',
     transform: function(filepath, file) {
@@ -343,3 +333,143 @@ gulp.task('production', function () {
 }
 });
 gulp.task('default', ['watch']);
+
+
+
+//START STAGING
+
+
+
+gulp.task('stg-clean', [], function () {
+  console.log("Clean all files in build folder");
+
+  return gulp.src([config.paths.tmp.folder], {
+    read: false
+  }).pipe(clean());
+});
+
+
+gulp.task('stg-copy-assets', [], function () {
+
+  return gulp.src([config.paths.assets.allfiles]).pipe(gulp.dest(config.paths.tmp.assets));
+});
+
+// Copy vendor css files & auto-inject into browsers
+gulp.task('stg-copy-css', function () {
+  return gulp.src(config.paths.src.vendor.css.watch)
+    .pipe(gulp.dest(config.paths.tmp.vendor.css));
+});
+
+// Copy js files & auto-inject into browsers
+gulp.task('stg-copy-js', function () {
+  return gulp.src(config.paths.src.js.watch)
+    .pipe(concat("scripts.js"))
+    .pipe(rename('scripts.min.js'))
+    .pipe(gulp.dest(config.paths.tmp.js));
+});
+
+// Copy vendor js files & auto-inject into browsers
+gulp.task('stg-copy-vendor-js', function () {
+  return gulp.src(config.paths.src.vendor.js.watch)
+    .pipe(concat("vendor.scripts.js"))
+    .pipe(rename('scripts.min.js'))
+    .pipe(gulp.dest(config.paths.tmp.vendor.js));
+});
+
+// Compile sass & auto-inject into browsers
+gulp.task('stg-sass', function () {
+
+  return gulp.src(config.paths.src.scss.entrypoint)
+    .pipe(wait(500))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([autoprefixer({
+      browsers: ['last 2 versions']
+    })]))
+    .pipe(replace('url\\(/assets', 'url(' + configFTP.startFolder + "assets"))
+    .pipe(replace('url\\(assets', 'url(' + configFTP.startFolder + "assets"))
+    .pipe(replace("url\\('/assets", "url('" + configFTP.startFolder + "assets"))
+    .pipe(replace("url\\('assets", "url('" + configFTP.startFolder + "assets"))
+    .pipe(gulp.dest(config.paths.tmp.css));
+});
+
+gulp.task('stg-inject', function () {
+  var target = gulp.src(config.paths.src.html.watch);
+
+  var sources = gulp.src(config.paths.tmp.injectarray, {
+    'cwd': __dirname + '/' + config.paths.tmp.folder
+  });
+  return target.pipe(inject(sources))
+
+    .pipe(inject(gulp.src(['othercode/vendorremotecode.html']), { //inject facebook pixel code
+      starttag: '<!-- inject:vendorremotecode:html -->',
+      transform: function (filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/footer.html']), { //inject facebook pixel code
+      starttag: '<!-- inject:footer:html -->',
+      transform: function (filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/header.html']), { //inject facebook pixel code
+      starttag: '<!-- inject:header:html -->',
+      transform: function (filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/fonts.html']), { //inject facebook pixel code
+      starttag: '<!-- inject:fonts:html -->',
+      transform: function (filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(inject(gulp.src(['src/partials/out-of-the-wrapper.html']), { //inject code outside the wrappers
+      starttag: '<!-- inject:outofthewrapper:html -->',
+      transform: function (filepath, file) {
+        return file.contents.toString();
+      }
+    }))
+    .pipe(replace('src="/', 'src="' + configFTP.startFolder))
+    .pipe(replace('src="./', 'src="' + configFTP.startFolder))
+    .pipe(replace('src="assets/', 'src="' + configFTP.startFolder + "assets/"))
+    .pipe(replace('href="/', 'href="' + configFTP.startFolder))
+    .pipe(replace('href="./', 'href="' + configFTP.startFolder))
+    .pipe(replace('href="assets/', 'href="' + configFTP.startFolder + "assets/"))
+    .pipe(gulp.dest(config.paths.tmp.folder));
+});
+
+
+
+
+
+gulp.task("stg-ft-upload", () => {
+
+  var configf = configFTP;
+  configf.log = gutil.log;
+  var conn = ftp.create(configf);
+
+  return gulp.src(["tmp/**", "!tmp/assets/**", "!tmp/kernel/**"], {
+      buffer: true,
+      reload: true
+    })
+    .pipe(conn.newerOrDifferentSize("/")) // only upload newer files
+    .pipe(conn.dest("/"));
+
+
+});
+
+//END STAGING
+
+//staging task
+gulp.task("staging", () => {
+  runSequence('clean',
+    'sass',
+    ['copy-js', 'copy-vendor-js', 'copy-css'],
+    'create-cookie-file',
+    'inject',
+    'stg-ft-upload',
+    function () {
+      console.log("UPLOADED TO STAGING SERVER");
+    });
+});
