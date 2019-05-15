@@ -16,6 +16,3 @@ prod/
 
 # Exclude temporary folder
 tmp/
-
-# Exclude ftp-config.json
-ftp-config.json
