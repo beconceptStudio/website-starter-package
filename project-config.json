@@ -1,87 +1,104 @@
 {
-    "_comments" : [
+    "_comments": [
         "for classes not insert '.'"
     ],
-    "cookie" : {
-        "COOKIE_POLICY_URL" : "insert here cookie policy url",
-        "COOKIE_SCRIPT_ID" : "insert here cookie script id",
-        "ACCEPT_CLASS" : "cookieaccept",
-        "MORE_CLASS" : "insert here read more button class",
-        "REJECT_CLASS" : "cookiereject",
-        "COOKIE_BANNER_CLASS" : "cookie-wrapper"
+    "cookie": {
+        "COOKIE_POLICY_URL": "insert here cookie policy url",
+        "COOKIE_SCRIPT_ID": "insert here cookie script id",
+        "ACCEPT_CLASS": "cookieaccept",
+        "MORE_CLASS": "insert here read more button class",
+        "REJECT_CLASS": "cookiereject",
+        "COOKIE_BANNER_CLASS": "cookie-wrapper"
     },
-    "analytics" : {
-        "facebook" : {
+    "analytics": {
+        "facebook": {
             "pixelID": ""
         },
-        "google" : {
-            "analytics" : {},
-            "tagmanager" : {}
-        },        
-        "woopra" : {}
-    },
-    
-
-
-    "paths" : {        
-        "assets" : {
-            "folder" : "/assets/",
-            "allfiles" : "assets/**/*"
+        "google": {
+            "analytics": {},
+            "tagmanager": {}
         },
-        "src" : {
-            "folder" : "src/",
-            "js" : {
-                "absolute" : "src/js/",
-                "watch" : "src/js/*.js"
+        "woopra": {}
+    },
+
+
+
+    "paths": {
+        "assets": {
+            "folder": "/assets/",
+            "allfiles": "assets/**/*"
+        },
+        "src": {
+            "folder": "src/",
+            "js": {
+                "absolute": "src/js/",
+                "watch": ["src/js/*.js", "!src/js/00_loaderEffecs.js"],
+                "watch2": "src/js/00_loaderEffecs.js"
             },
-            "partials" : "src/partials",
-            "vendor" : {
-                "folder" : "src/vendor/",
-                "js" : {
-                    "folder" : "src/vendor/js",
-                    "watch" : "src/vendor/js/*.js"
+            "partials": "src/partials",
+            "vendor": {
+                "folder": "src/vendor/",
+                "js": {
+                    "folder": "src/vendor/js",
+                    "watch": ["src/vendor/js/*.js", "!src/vendor/js/01_TimelineMax.min.js", "!src/vendor/js/01_TweenMax.min.js", "!src/vendor/js/02_SplitText.js"],
+                    "watch2": ["src/vendor/js/01_TimelineMax.min.js", "src/vendor/js/01_TweenMax.min.js", "src/vendor/js/02_SplitText.js"]
                 },
-                "css" : {
-                    "folder" : "src/vendor/css",
-                    "watch" : "src/vendor/css/*.css"
+                "css": {
+                    "folder": "src/vendor/css",
+                    "watch": "src/vendor/css/*.css"
                 }
             },
-            "scss" : {
-                "folder" : "src/scss/",
-                "entrypoint" : "src/scss/main.scss",
-                "watch" : ["src/scss/**/*.scss","src/scss/*.scss"]
+            "scss": {
+                "folder": "src/scss/",
+                "entrypoint": ["src/scss/main.scss", "src/scss/loader.scss"],
+                "watch": ["src/scss/**/*.scss", "src/scss/*.scss"]
             },
-            "html" : {
-                "watch" : "src/**/*.html"
+            "html": {
+                "watch": "src/**/*.html"
+            },
+            "alljs": ["src/vendor/js/*.js", "src/js/*.js"]
+
+
+        },
+        "tmp": {
+            "injectarray": ["dist/vendor/js/*.js", "dist/vendor/css/*.css", "dist/js/*.js", "dist/css/*.css"],
+            "folder": "tmp/",
+            "js": "tmp/dist/js/",
+            "css": "tmp/dist/css/",
+            "assets": "tmp/assets",
+            "vendor": {
+                "folder": "tmp/dist/vendor/",
+                "js": "tmp/dist/vendor/js",
+                "css": "tmp/dist/vendor/css"
+            },
+            "scss": {
+                "folder": "src/scss/",
+                "entrypoint": "src/scss/main.scss"
             }
         },
-        "tmp" : {
+        "prod": {
             "injectarray": ["dist/vendor/js/*.js", "dist/vendor/css/*.css", "dist/js/*.js", "dist/css/*.css"],
-            "folder" : "tmp/",
-            "js" : "tmp/dist/js/",
-            "css" : "tmp/dist/css/",
-            "assets" : "tmp/assets",
-            "vendor" : {
-                "folder" : "tmp/dist/vendor/",
-                "js" : "tmp/dist/vendor/js",
-                "css" : "tmp/dist/vendor/css"
-            },
-            "scss" : {
-                "folder" : "src/scss/",
-                "entrypoint" : "src/scss/main.scss"
+            "folder": "prod/",
+            "js": "prod/dist/js/",
+            "css": "prod/dist/css/",
+            "assets": "prod/assets",
+            "vendor": {
+                "folder": "prod/dist/vendor/",
+                "js": "prod/dist/vendor/js",
+                "css": "prod/dist/vendor/css"
             }
         },
-        "prod":{
+        "stg": {
             "injectarray": ["dist/vendor/js/*.js", "dist/vendor/css/*.css", "dist/js/*.js", "dist/css/*.css"],
-            "folder" : "prod/",
-            "js" : "prod/dist/js/",
-            "css" : "prod/dist/css/",
-            "assets" : "prod/assets",
-            "vendor" : {
-                "folder" : "prod/dist/vendor/",
-                "js" : "prod/dist/vendor/js",
-                "css" : "prod/dist/vendor/css"
+            "folder": "stg/",
+            "js": "stg/dist/js/",
+            "css": "stg/dist/css/",
+            "assets": "stg/assets",
+            "vendor": {
+                "folder": "stg/dist/vendor/",
+                "js": "stg/dist/vendor/js",
+                "css": "stg/dist/vendor/css"
             }
         }
     }
-  }
+}

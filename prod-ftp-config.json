@@ -1,0 +1,20 @@
+{
+    "user": "",
+    "password": "",
+    "host": "",
+    "port": 21,
+    "localRoot": "tmp",
+    "remoteRoot": ".",
+    "startFolder": "",
+    "include": [
+        "tmp/**/*.*",
+        "tmp/sitemap.xml",
+        "!tmp/kernel/*.*",
+        "!tmp/partials/*.*"
+    ],
+    "exclude": ["partials/**/*.*", "kernel/**/*.*", "font/**/*.*"],
+    "deleteRemote": true,
+    "forcePasv": true,
+    "parallel": 3
+
+}
